@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { zodTextFormat } from "openai/helpers/zod";
 import { RecipesResponseSchema } from "./requestSchema.js";
 
+
 const openai = new OpenAI({
   apiKey: process.env.SECRET_OPENAI,
 });
