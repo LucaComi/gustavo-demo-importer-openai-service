@@ -12,7 +12,7 @@ const openai = new OpenAI({
 export async function fetchRecipes(link) {
 
   const response = await openai.responses.parse({
-  model: "gpt-5-mini",
+  model: "gpt-5-nano",
   input: `From the following link: ${link}, extract the recipe and return the information in structured format with the following fields:
 
       - Title of the recipe
@@ -30,7 +30,8 @@ export async function fetchRecipes(link) {
     format: zodTextFormat(RecipesResponseSchema, "recipes_results"),
   },
   reasoning: {
-    "effort": "medium",
+    // by reducithg the effort, we can speed up the response time 
+    "effort": "low",
     "summary": "auto"
   },
   tools: [
@@ -54,7 +55,7 @@ export async function fetchRecipes(link) {
 
 //console.log(response); 
 
-return response.output_parsed;;
+return response.output_parsed;
 
 
 }
