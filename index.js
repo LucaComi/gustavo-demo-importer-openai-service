@@ -3,7 +3,8 @@ import express from 'express';
 import 'dotenv/config';
 
 import { fetchRecipes } from './openAIRequests.js';
-import { setInitRequest } from './firebaseManager.js';
+import { parseResultOnFirebase } from './firebaseManager.js';
+import {getLanguage} from "./languageManager.js"
 
 const app = express();
 
@@ -18,29 +19,19 @@ app.get('/', (req, res) => {
   res.send('Hello, Express with openAI!');
 });
 
-// Route to handle recipe import requests
-app.post("/request-import-recipe", async (req, res) => {
-  const {url} = req.body;
-  const requestID = await setInitRequest(url)
-
-  res.json({
-    message: "Request successfully initiated",
-    response: {requestID},
-  });
-}); 
-
-
-app.post("/import-recipe", async (req, res) => {
-  const {url} = req.body;
+app.post("/process-import-recipe", async (req, res) => {
+  const {url, languageCode} = req.body;
   console.log("Received data:", req.body);
-  const recipe = await fetchRecipes(url)
+  const language = getLanguage(languageCode); 
+  const recipe = await fetchRecipes(url, language);
+  console.log("RR:", recipe)
+  await parseResultOnFirebase(recipe); 
 
   res.json({
     message: "Data received successfully",
     response: {recipe},
   });
 });
-
 
 
 app.listen(PORT, () => {

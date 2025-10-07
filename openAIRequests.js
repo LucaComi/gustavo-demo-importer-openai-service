@@ -9,7 +9,7 @@ const openai = new OpenAI({
 });
 
 
-export async function fetchRecipes(link) {
+export async function fetchRecipes(link, language) {
 
   const response = await openai.responses.parse({
   model: "gpt-5-nano",
@@ -24,7 +24,7 @@ export async function fetchRecipes(link) {
       - Preparation time 
       - Cooking time
 
-    Make sure the output is well-structured and easy to parse.`,
+    Make sure the output is well-structured and easy to parse. Translate the output in ${language}`,
 
   text: {
     format: zodTextFormat(RecipesResponseSchema, "recipes_results"),
