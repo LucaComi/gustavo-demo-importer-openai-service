@@ -8,7 +8,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:docker": "docker buildx build -t europe-docker.pkg.dev/fir-recipe-importer/docker-repo/demo-openai-importer:$(node -p \"require('./package.json').version\") --platform linux/amd64 .",
+    "push:docker": "docker push europe-docker.pkg.dev/fir-recipe-importer/docker-repo/demo-openai-importer:$(node -p \"require('./package.json').version\")",
+    "docker:deploy": "npm run build:docker && npm run push:docker"
   },
   "dependencies": {
     "dotenv": "^17.2.2",

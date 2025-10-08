@@ -53,6 +53,8 @@ export const RecipeSearchSchema = z.object({
     "Snack",
   ]),
 
+  importStatus: z.boolean().default(false)
+
 });
 
 

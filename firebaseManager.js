@@ -3,8 +3,12 @@ import { getFirestore } from "firebase-admin/firestore";
 
 const app = initializeApp();
 
+export const updateAIusage = async () => {
+  // every request needs to be tracked 
+}
 
-export async function parseResultOnFirebase(recipeData) {
+
+export async function parseResultOnFirebase(recipeData, requestUsage, url) {
 
     const db = getFirestore(app);
 
@@ -14,10 +18,10 @@ export async function parseResultOnFirebase(recipeData) {
     // Extract the recipe from nested structure
     const recipe = recipeData.result[0]
 
+
     // Save all data to Firestore
     await docRef.set({
         title: recipe.title,
-        link: recipe.link,
         description: recipe.description,
         country: recipe.country,
         categorisation: recipe.categorisation,
@@ -36,9 +40,10 @@ export async function parseResultOnFirebase(recipeData) {
             notes: ing.notes
         })),
         steps: recipe.steps,
-        linkRequest: link,
+        urlRequest: url,
         createdAt: new Date(),
-        importCompleted: true
+        importCompleted: true,
+        reqeuestUsage: requestUsage
     });
     
     // Return the document ID

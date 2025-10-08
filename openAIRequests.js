@@ -24,7 +24,10 @@ export async function fetchRecipes(link, language) {
       - Preparation time 
       - Cooking time
 
-    Make sure the output is well-structured and easy to parse. Translate the output in ${language}`,
+    Make sure the output is well-structured and easy to parse. Translate the output in ${language}
+    
+    Set the field importStatus in the output to true only if you can successfully extract the recipe
+    `,
 
   text: {
     format: zodTextFormat(RecipesResponseSchema, "recipes_results"),
@@ -50,13 +53,10 @@ export async function fetchRecipes(link, language) {
   ]
 });
 
-// const recipes = 
-// console.log(recipes);
-
-//console.log(response); 
-
-return response.output_parsed;
-
+  return {
+    recipeResponse: response.output_parsed,
+    requestUsage: response.usage,
+  };
 
 }
 
