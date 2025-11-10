@@ -44,6 +44,9 @@ export async function parseResultOnFirebase(recipeData, requestUsage, url) {
         createdAt: new Date(),
         importCompleted: true,
         reqeuestUsage: requestUsage
+
+        // add nutrition to the list
+        
     });
     
     // Return the document ID

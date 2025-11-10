@@ -23,6 +23,11 @@ export async function fetchRecipes(link, language) {
       - COMPLETE step-by-step instructions (MUST include every single cooking step, don't number the steps)
       - Preparation time 
       - Cooking time
+      - Nutritional values per 1 portion: 
+          * calories (kcal)
+          * protein (g)
+          * fat (g)
+          * carbs (g)
 
     CRITICAL: The instructions array MUST contain ALL steps from the recipe. Make sure the output is well-structured and easy to parse. Translate the output in ${language}
     

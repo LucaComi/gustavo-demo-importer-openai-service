@@ -5,6 +5,14 @@ const TimeSchema = z.object({
   minutes: z.number().int().min(0).max(59),
 });
 
+ // NEW FIELD
+const NutritionSchema = z.object({
+    calories: z.number(),
+    protein: z.number(),       
+    fat: z.number(),           
+    carbs: z.number()          
+});
+
 
 const IngredientSchema = z.object({
   name: z.string(),
@@ -52,6 +60,8 @@ export const RecipeSearchSchema = z.object({
     "Dessert",
     "Snack",
   ]),
+
+  nutrition: NutritionSchema,
 
   importStatus: z.boolean().default(false)
 
