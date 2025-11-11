@@ -43,10 +43,13 @@ export async function parseResultOnFirebase(recipeData, requestUsage, url) {
         urlRequest: url,
         createdAt: new Date(),
         importCompleted: true,
-        reqeuestUsage: requestUsage
-
-        // add nutrition to the list
-        
+        reqeuestUsage: requestUsage,
+        nutrition: {
+            "calories": recipe.nutrition.calories,
+            "protein":  recipe.nutrition.protein,
+            "fat": recipe.nutrition.fat,
+            "carbs": recipe.nutrition.carbs
+        }
     });
     
     // Return the document ID
